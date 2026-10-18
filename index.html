@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#2b1636">
+  <title>Rooftop Rush</title>
+  <meta name="description" content="Sprint across a sunset skyline, jump the gaps and dodge everything on the roof.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                 "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <!-- Name above the character (positioned every frame from the 3D head position) -->
+  <div id="nametag" class="nametag hidden"></div>
+  <!-- Pooled pop-up numbers -->
+  <div id="popups"></div>
+
+  <!-- HUD while playing -->
+  <div id="hud" class="hidden">
+    <div class="hud-group">
+      <div class="hud-block"><span id="hud-score">0</span><small>m</small></div>
+      <div class="hud-block coins"><i class="coin-ico"></i><span id="hud-coins">0</span></div>
+    </div>
+    <button id="btn-pause" class="icon-btn" type="button" aria-label="Pause">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+    </button>
+  </div>
+
+  <!-- Touch devices get a big jump button (tapping anywhere also jumps) -->
+  <button id="btn-jump" class="hidden" type="button" aria-label="Jump">Jump</button>
+
+  <!-- Start screen -->
+  <section id="screen-start" class="screen">
+    <div class="card">
+      <h1 class="title"><span>Rooftop</span><span>Rush</span></h1>
+      <p class="tagline">Sprint across the skyline. Don't look down.</p>
+      <ul class="howto">
+        <li><kbd>Space</kbd> or tap to jump. Press again in mid-air to double jump.</li>
+        <li>Clear the gaps and dodge tanks, dishes and clothes lines.</li>
+        <li>Grab coins. They count as your second score.</li>
+        <li><kbd>Esc</kbd> pauses the run.</li>
+      </ul>
+      <div class="player-card">
+        <div class="avatar" id="avatar" aria-hidden="true"><i class="hd"></i><i class="tp"></i><i class="bt"></i></div>
+        <div class="player-info">
+          <span class="player-label">Playing as</span>
+          <strong id="player-name">Guest</strong>
+          <span id="player-note" class="player-note"></span>
+        </div>
+        <button id="btn-signin" class="btn ghost small" type="button">Sign in</button>
+      </div>
+      <button id="btn-play" class="btn" type="button">Play</button>
+      <p class="best-line">Best run: <strong id="best-start">0</strong> m</p>
+    </div>
+  </section>
+
+  <!-- Pause screen -->
+  <section id="screen-pause" class="screen center hidden">
+    <div class="card narrow">
+      <h2>Paused</h2>
+      <button id="btn-resume" class="btn" type="button">Resume</button>
+      <button id="btn-restart" class="btn ghost" type="button">Restart run</button>
+    </div>
+  </section>
+
+  <!-- Game-over screen -->
+  <section id="screen-over" class="screen hidden">
+    <div class="card wide">
+      <h2>Run over</h2>
+      <div class="result-grid">
+        <div><span class="r-label">Distance</span><strong id="go-score">0</strong><em id="go-new" class="badge hidden">New best</em></div>
+        <div><span class="r-label">Coins</span><strong id="go-coins">0</strong></div>
+        <div><span class="r-label">Best</span><strong id="go-best">0</strong></div>
+      </div>
+      <p id="go-status" class="status hidden"></p>
+      <h3>Top 10</h3>
+      <ol id="go-board" class="board"></ol>
+      <div class="actions">
+        <button id="btn-again" class="btn" type="button">Play again</button>
+        <button id="btn-signin-over" class="btn ghost hidden" type="button">Sign in</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shown only if WebGL cannot start -->
+  <section id="fatal" class="screen center hidden">
+    <div class="card narrow">
+      <h2>3D is not available</h2>
+      <p>Your browser could not start WebGL. Try a recent Chrome, Edge, Firefox or Safari, and make sure hardware acceleration is on.</p>
+    </div>
+  </section>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
